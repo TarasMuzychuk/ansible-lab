@@ -4,12 +4,15 @@ TODO: Path to jar should use variables {{ app_dir }}/{{ app_file }}
 TODO: Environment variable for PORT should use value from variable {{ app_port }}
 #}
 [Unit]
-Description=
-Requires=
-After=
+Description=ansible_lab
+Requires=network.target
+After=network.target
 
 [Install]
 WantedBy=multi-user.target
 
 [Service]
-ExecStart=
+ExecStart=/usr/bin/java -jar /opt/sample/service.jar
+User=taras
+Environment=PORT="8080"
+Restart=always
