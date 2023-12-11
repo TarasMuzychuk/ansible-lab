@@ -1,5 +1,5 @@
 ---
-- name: Ansible_lab
+- name: ansible_lab
   # TODO: change to remote if you have one
   hosts: local
   gather_facts: true
