@@ -12,7 +12,7 @@ After=network.target
 WantedBy=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/java -jar /opt/sample/service.jar
-User=taras
-Environment=PORT="8080"
+ExecStart=java -jar {{ app_dir }}/{{ app_file }}
+User=aleks
+Environment=PORT={{ app_port }}
 Restart=always
