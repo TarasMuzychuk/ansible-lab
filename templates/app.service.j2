@@ -13,6 +13,6 @@ WantedBy=multi-user.target
 
 [Service]
 ExecStart=java -jar {{ app_dir }}/{{ app_file }}
-User=tars
+User=taras
 Environment=PORT={{ app_port }}
 Restart=always
