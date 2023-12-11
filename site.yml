@@ -1,5 +1,5 @@
 ---
-- name: Ansible lab
+- name: Ansible_lab
   # TODO: change to remote if you have one
   hosts: local
   gather_facts: true
@@ -11,11 +11,9 @@
       become: true
       apt:
       # TODO: Your code here
-     packages:
-       - nginx
-       - openjdk-21-jre
+     packages: '{{packages}}'
     update_cache: yes
-    cache_valid_time: 3600
+    cache_valid_time: '{{aptcachetime}}'
     # Find implementation in https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_module.html#examples
     - name: Enable Nginx service, ensure it is not masked and start it
       become: true
@@ -32,8 +30,9 @@
       become: true
       ansible.builtin.file:
       # TODO: Your code here
-      path: /opt/sample
+      path: '{{ app_dir }}'
       state: directory
+      owner: '{{ ansible_user_id }}'
       mode: '0755'
 
     # Find implementation in https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html#examples
@@ -45,8 +44,8 @@
       ansible.builtin.get_url:
       # TODO: Your code here
           url: https://storage.googleapis.com/devops-practice-files/systemd/ServicesLab-0.0.1.jar
-          dest: /usr/bin/java -jar /opt/sample/service.jar
-          owner: taras
+          dest: '{{ app_dir }}/{{ app_file }}'
+          owner: '{{ ansible_user_id }}'
           mode: '0644'
     # Find implementation in https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html#examples
     # dest should be /etc/systemd/system/sample.service
